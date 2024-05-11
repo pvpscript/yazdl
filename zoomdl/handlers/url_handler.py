@@ -1,5 +1,6 @@
-from requests import Session
 from urllib.parse import urlparse
+
+from requests import Session
 
 from zoomdl.handlers.parser import InfoParser
 

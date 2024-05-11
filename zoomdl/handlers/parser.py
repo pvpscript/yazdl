@@ -31,16 +31,16 @@ class InfoParser(HTMLParser):
             json_data = json.loads(quoted_payload)
 
             return json_data[self._field]
-        except AttributeError:
-            raise PayloadError(f'An error occurred when parsing the initial payload: "{e}"')
+        except AttributeError as e:
+            raise PayloadError('An error occurred when parsing the initial payload') from e
         except json.decoder.JSONDecodeError as e:
-            raise PayloadError(f'Unable to parse the payload as JSON: "{e}"')
-        except KeyError:
-            raise PayloadError(f'Unable to find expected field: "{k}"')
+            raise PayloadError(f'Unable to parse the payload as JSON: "{e}"') from e
+        except KeyError as e:
+            raise PayloadError(f'Unable to find expected field: "{e}"') from e
 
     def feed(self, data) -> None:
         self._clear()
-        
+
         super().feed(data)
 
     def handle_starttag(self, tag: str, attrs: tuple[str]) -> None:

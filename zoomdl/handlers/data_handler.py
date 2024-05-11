@@ -42,4 +42,4 @@ class DataHandler:
         try:
             return Streams(self._fetch_content_json(url))
         except JSONDecodeError as e:
-            raise DataError(f'Unable to fetch data as JSON: "{e}"')
+            raise DataError(f'Unable to fetch data as JSON: "{e}"') from e

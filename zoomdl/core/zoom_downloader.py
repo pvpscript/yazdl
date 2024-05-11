@@ -1,6 +1,6 @@
-from requests import Session
-
 from typing import Generator
+
+from requests import Session
 
 from zoomdl.handlers.data_handler import DataHandler
 
