@@ -25,9 +25,9 @@ class InfoParser(HTMLParser):
         try:
             payload = self._payload_re.match(clean_data).group(1)
             quoted_payload = self._add_quotes_re.sub(
-                    lambda match: f'"{match.group(1)}":',
-                    payload,
-                    )
+                lambda match: f'"{match.group(1)}":',
+                payload,
+            )
             json_data = json.loads(quoted_payload)
 
             return json_data[self._field]
