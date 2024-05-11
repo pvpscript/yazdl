@@ -3,8 +3,6 @@ import json
 from requests import Session
 from requests.exceptions import JSONDecodeError
 
-from typing import Self
-
 from zoomdl.handlers.url_handler import UrlHandler
 from zoomdl.data.streams import Streams
 from zoomdl.data.headers import ua_header
@@ -18,7 +16,7 @@ class DataHandler:
         'continueMode': 'true',
     }
 
-    def __init__(self, session: Session, url_handler: UrlHandler) -> Self:
+    def __init__(self, session: Session, url_handler: UrlHandler) -> None:
         self._session = session
         self._url_handler = url_handler
 

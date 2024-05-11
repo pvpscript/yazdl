@@ -1,14 +1,12 @@
 from requests import Session
 from urllib.parse import urlparse
 
-from typing import Self
-
 from zoomdl.handlers.parser import InfoParser
 
 class UrlHandler:
     _CONTENT_URL_TEMPLATE = '{netloc}/nws/recording/1.0/play/info/{data_portion}'
 
-    def __init__(self, session: Session, parser: InfoParser) -> Self:
+    def __init__(self, session: Session, parser: InfoParser) -> None:
         self._session = session
         self._parser = parser
 

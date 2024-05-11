@@ -1,7 +1,5 @@
-from typing import Self
-
 class Streams:
-    def __init__(self, content: dict[str, str]) -> Self:
+    def __init__(self, content: dict[str, str]) -> None:
         self._content = content
 
     @property

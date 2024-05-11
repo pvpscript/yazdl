@@ -2,7 +2,6 @@ import sys
 import requests
 
 from urllib.parse import urlparse
-from typing import Self
 
 from zoomdl.handlers.parser import InfoParser
 from zoomdl.handlers.url_handler import UrlHandler

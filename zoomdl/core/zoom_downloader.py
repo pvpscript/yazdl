@@ -1,13 +1,13 @@
 from requests import Session
 
-from typing import Self, Generator
+from typing import Generator
 
 from zoomdl.handlers.data_handler import DataHandler
 
 DownloadCoroutine = Generator[bytes, None, None]
 
 class ZoomDownloader:
-    def __init__(self, session: Session, data_handler: DataHandler) -> Self:
+    def __init__(self, session: Session, data_handler: DataHandler) -> None:
         self._session = session
         self._data_handler = data_handler
 
