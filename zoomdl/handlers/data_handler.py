@@ -7,9 +7,8 @@ from zoomdl.handlers.url_handler import UrlHandler
 from zoomdl.data.streams import Streams
 from zoomdl.data.headers import ua_header
 
-""" Raised when a data error occurs """
 class DataError(Exception):
-    pass
+    """ Raised when a data error occurs """
 
 class DataHandler:
     _PARAMS = {

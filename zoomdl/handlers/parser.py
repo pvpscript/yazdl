@@ -3,9 +3,8 @@ import json
 
 from html.parser import HTMLParser
 
-""" Raised when theres an error on the payload formatting """
 class PayloadError(Exception):
-    pass
+    """ Raised when theres an error on the payload formatting """
 
 class InfoParser(HTMLParser):
     _payload_re: re.Pattern = re.compile(r'.*?({.*})')
