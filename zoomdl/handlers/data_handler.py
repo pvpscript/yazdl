@@ -1,6 +1,7 @@
 import json
 
 from requests import Session
+from requests.models import Response
 from requests.exceptions import JSONDecodeError
 
 from zoomdl.handlers.url_handler import UrlHandler
@@ -19,27 +20,54 @@ class DataHandler:
         self._session = session
         self._url_handler = url_handler
 
-    def _fetch_content_json(self, url: str) -> dict[str, str]:
+    def _fetch_content_json(self, url: str, extra_params: dict[str, str]) -> dict[str, str]:
         content_url = self._url_handler.build_content_url(url, ua_header)
+
+        params = {
+            **self._PARAMS,
+            **extra_params,
+        }
 
         content_json = self._session.get(
             url=content_url,
             headers=ua_header,
-            params=self._PARAMS
+            params=params,
         ).json()
 
         return content_json['result']
 
-    def content_header(self, url):
-        loc = self._url_handler.build_loc(url)
+    def _content_title(self, content: dict[str, str], curr_clip: int, clips: int) -> str:
+        title = content['meet']['topic']
+        
+        if clips > 1:
+            return f'{title} - Recording ({curr_clip}/{clips})'
 
-        return {
-            **ua_header,
-            'referer': loc
+        return title
+
+    def _fetch_all_clips(self, url: str, params: dict[str, str] = {}) -> list[dict[str, str]]:
+        content = self._fetch_content_json(url, params)
+        next_clip_start_time = content['nextClipStartTime']
+
+        if next_clip_start_time == -1:
+            return [content]
+
+        params = {
+            'startTime': next_clip_start_time,
         }
+
+        return [content] + self._fetch_all_clips(url, params)
+
+    def download_stream(self, stream_url: str) -> Response:
+        origin = self._url_handler.origin(stream_url)
+        headers = {
+            **self._session.headers,
+            'referer': origin,
+        }
+
+        return self._session.get(stream_url, headers=headers, stream=True)
 
     def fetch_streams(self, url: str) -> Streams:
         try:
-            return Streams(self._fetch_content_json(url))
+            return [Streams(clip) for clip in self._fetch_all_clips(url)]
         except JSONDecodeError as e:
             raise DataError(f'Unable to fetch data as JSON: "{e}"') from e
