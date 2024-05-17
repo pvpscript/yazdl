@@ -6,7 +6,6 @@ from requests.exceptions import JSONDecodeError
 
 from zoomdl.handlers.url_handler import UrlHandler
 from zoomdl.data.streams import Streams
-from zoomdl.data.headers import ua_header
 
 class DataError(Exception):
     """ Raised when a data error occurs """
@@ -21,7 +20,7 @@ class DataHandler:
         self._url_handler = url_handler
 
     def _fetch_content_json(self, url: str, extra_params: dict[str, str]) -> dict[str, str]:
-        content_url = self._url_handler.build_content_url(url, ua_header)
+        content_url = self._url_handler.build_content_url(url)
 
         params = {
             **self._PARAMS,
@@ -30,7 +29,6 @@ class DataHandler:
 
         content_json = self._session.get(
             url=content_url,
-            headers=ua_header,
             params=params,
         ).json()
 

@@ -11,9 +11,9 @@ class UrlHandler:
         self._session = session
         self._parser = parser
 
-    def build_content_url(self, url: str, headers: dict[str, str]) -> str:
+    def build_content_url(self, url: str) -> str:
         origin = self._build_origin(url)
-        data_portion = self._video_data_portion(url, headers)
+        data_portion = self._video_data_portion(url)
 
         return self._build_content_url(origin, data_portion)
 
@@ -25,8 +25,8 @@ class UrlHandler:
 
         return f'{parsed_url.scheme}://{parsed_url.netloc}'
 
-    def _video_data_portion(self, url: str, headers: dict[str, str]) -> str:
-        raw_data = self._session.get(url, headers=headers).text
+    def _video_data_portion(self, url: str) -> str:
+        raw_data = self._session.get(url).text
         self._parser.feed(raw_data)
 
         return self._parser.data
