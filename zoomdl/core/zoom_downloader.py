@@ -1,3 +1,5 @@
+import re
+
 from typing import Generator
 
 from requests import Session
@@ -7,33 +9,40 @@ from zoomdl.handlers.data_handler import DataHandler
 DownloadCoroutine = Generator[bytes, None, None]
 
 class ZoomDownloader:
-    def __init__(self, session: Session, data_handler: DataHandler) -> None:
+    _CHUNK_SIZE = 1048576 # 1MiB
+
+    def __init__(self, args: list[str], session: Session, data_handler: DataHandler) -> None:
+        self._args = args
         self._session = session
         self._data_handler = data_handler
 
-    def _download_stream(self, url: str, headers: dict[str, str]) -> DownloadCoroutine:
-        with self._session.get(url, headers=headers, stream=True) as video:
-            video.raise_for_status()
+    def _download_stream(self, url: str) -> DownloadCoroutine:
+        with self._data_handler.download_stream(url) as video_stream:
+            video_stream.raise_for_status() 
 
-            yield from video.iter_content(chunk_size=8192)
+            yield from video_stream.iter_content(chunk_size=self._CHUNK_SIZE)
 
-    def _test(self, url, headers, name_tmp):
+    def _test(self, url, name_tmp):
         with open(name_tmp, 'wb') as f:
             i = 0
 
-            x = self._download_stream(url, headers)
+            x = self._download_stream(url)
             for chunk in x:
-                if i > 1024:
+                if i > 100:
                     break
 
                 print(i)
                 f.write(chunk)
                 i += 1
 
+    def _download_to_file(self, url: str, name: str) -> None:
+        with open(name, 'wb') as output:
+            for chunk in self._download_stream(url):
+                output.write(chunk)
 
     def download_data(self, url: str) -> None:
-        headers = self._data_handler.content_header(url)
         streams = self._data_handler.fetch_streams(url)
 
-        self._test(streams.speaker, headers, 'speaker.mp4')
-        self._test(streams.screen, headers, 'screen.mp4')
+        for stream in streams:
+            self._download_to_file(stream.speaker, title + ' - Speaker.mp4')
+            self._download_to_file(stream.screen, title + ' - Screen.mp4')
