@@ -44,5 +44,5 @@ class ZoomDownloader:
         streams = self._data_handler.fetch_streams(url)
 
         for stream in streams:
-            self._download_to_file(stream.speaker, title + ' - Speaker.mp4')
-            self._download_to_file(stream.screen, title + ' - Screen.mp4')
+            self._download_to_file(stream.speaker, stream.title + ' - Speaker.mp4')
+            self._download_to_file(stream.screen, stream.title + ' - Screen.mp4')
