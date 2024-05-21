@@ -55,12 +55,16 @@ class DataHandler:
 
         return [content] + self._fetch_all_clips(url, params)
 
-    def download_stream(self, stream_url: str) -> Response:
+    def _stream_headers(self, stream_url: str) -> dict[str, str]:
         origin = self._url_handler.origin(stream_url)
-        headers = {
+
+        return {
             **self._session.headers,
             'referer': origin,
         }
+
+    def download_stream(self, stream_url: str) -> Response:
+        headers = self._stream_headers(stream_url)
 
         return self._session.get(stream_url, headers=headers, stream=True)
 
