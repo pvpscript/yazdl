@@ -9,40 +9,44 @@ from zoomdl.handlers.data_handler import DataHandler
 DownloadCoroutine = Generator[bytes, None, None]
 
 class ZoomDownloader:
-    _CHUNK_SIZE = 1048576 # 1MiB
+    _CHUNK_SIZE = 1024 * 64 # 64KiB
 
     def __init__(self, args: list[str], session: Session, data_handler: DataHandler) -> None:
         self._args = args
         self._session = session
         self._data_handler = data_handler
 
-    def _download_stream(self, url: str) -> DownloadCoroutine:
-        with self._data_handler.download_stream(url) as video_stream:
-            video_stream.raise_for_status() 
+    def _download_stream(self, url: str) -> None:
+        video_stream = self._data_handler.download_stream(url)
+        video_stream.raise_for_status() 
 
-            yield from video_stream.iter_content(chunk_size=self._CHUNK_SIZE)
+        stream = video_stream.raw
+        size = int(stream.headers['Content-Length'])
 
-    def _test(self, url, name_tmp):
-        with open(name_tmp, 'wb') as f:
-            i = 0
+        return stream, size
 
-            x = self._download_stream(url)
-            for chunk in x:
-                if i > 100:
-                    break
+    def _download_to_file(self, url: str, output_file_name: str) -> None:
+        stream, size = self._download_stream(url)
 
-                print(i)
-                f.write(chunk)
-                i += 1
+        i = 1
+        dots_mod = 4
 
-    def _download_to_file(self, url: str, name: str) -> None:
-        with open(name, 'wb') as output:
-            for chunk in self._download_stream(url):
-                output.write(chunk)
+        print(f'Downloading file: "{output_file_name}"')
+
+        with open(output_file_name, 'wb') as output:
+            while data := stream.read(self._CHUNK_SIZE):
+                output.write(data)
+
+                print(f'Downloading{"."*i}{" "*(dots_mod - i)}', end='\r')
+                i = (i + 1) % 4
+
+        print('\nFinished downloading file!')
+
+        stream.close()
 
     def download_data(self, url: str) -> None:
         streams = self._data_handler.fetch_streams(url)
-
+        
         for stream in streams:
             self._download_to_file(stream.speaker, stream.title + ' - Speaker.mp4')
             self._download_to_file(stream.screen, stream.title + ' - Screen.mp4')
