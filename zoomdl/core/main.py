@@ -7,6 +7,7 @@ from zoomdl.handlers.data_handler import DataHandler
 from zoomdl.core.zoom_downloader import ZoomDownloader
 from zoomdl.core.headers import default_headers
 
+
 def init_downloader(args: list[str], session: requests.Session) -> ZoomDownloader:
     parser = InfoParser()
 
@@ -26,6 +27,4 @@ def start_session(args: list[str]) -> None:
         zoom_downloader.download_data(url)
 
 def main() -> None:
-    print("Entering main")
-
     start_session(sys.argv)
