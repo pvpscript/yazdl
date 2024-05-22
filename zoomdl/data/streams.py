@@ -1,16 +1,36 @@
+from urllib.parse import urlparse, urljoin
+
 import re
 
 class Streams:
-    def __init__(self, content: dict[str, str]) -> None:
+    def __init__(self, content: dict[str, str], origin: str | None) -> None:
         self._content = content
+        self._origin = origin
+
+    def _build_url(self, url: str) -> str:
+        if self._origin:
+            parsed = urlparse(url)
+
+            if not parsed.netloc:
+                return urljoin(self._origin, url)
+
+        return url
 
     @property
     def screen(self) -> str:
-        return self._content['shareMp4Url']
+        return self._build_url(self._content['shareMp4Url'])
 
     @property
     def speaker(self) -> str:
-        return self._content['speakerMp4Url']
+        return self._build_url(self._content['speakerMp4Url'])
+
+    @property
+    def subtitles(self) -> str:
+        return self._build_url(self._content['ccUrl'])
+
+    @property
+    def transcription(self) -> str:
+        return self._build_url(self._content['transcriptUrl'])
 
     def _sanitize(self, string: str) -> str:
         return re.sub(r'[^ a-zA-Z0-9_{}()-]', '_', string)
