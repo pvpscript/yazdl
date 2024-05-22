@@ -50,3 +50,5 @@ class ZoomDownloader:
         for stream in streams:
             self._download_to_file(stream.speaker, stream.title + ' - Speaker.mp4')
             self._download_to_file(stream.screen, stream.title + ' - Screen.mp4')
+            self._download_to_file(stream.subtitles, stream.title + ' - Subtitles.srt')
+            self._download_to_file(stream.transcription, stream.title + ' - Transcription.srt')
