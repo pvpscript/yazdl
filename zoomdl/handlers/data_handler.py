@@ -70,6 +70,8 @@ class DataHandler:
 
     def fetch_streams(self, url: str) -> Streams:
         try:
-            return [Streams(clip) for clip in self._fetch_all_clips(url)]
+            origin = self._url_handler.origin(url)
+
+            return [Streams(clip, origin) for clip in self._fetch_all_clips(url)]
         except JSONDecodeError as e:
             raise DataError(f'Unable to fetch data as JSON: "{e}"') from e
