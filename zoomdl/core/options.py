@@ -21,8 +21,6 @@ class Options:
                                   help="Downloads the default subtitle for the meeting as srt.")
         self._parser.add_argument('--transcription', '-t', action='store_true',
                                   help="Downloads the meeting transcription as srt.")
-        self._parser.add_argument('--verbose', '-v', action='store_true',
-                                  help="Be more verbose about what is happening.")
 
 
     def parse(self, args: list[str]) -> argparse.Namespace:
