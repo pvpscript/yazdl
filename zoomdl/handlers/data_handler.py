@@ -34,14 +34,6 @@ class DataHandler:
 
         return content_json['result']
 
-    def _content_title(self, content: dict[str, str], curr_clip: int, clips: int) -> str:
-        title = content['meet']['topic']
-        
-        if clips > 1:
-            return f'{title} - Recording ({curr_clip}/{clips})'
-
-        return title
-
     def _fetch_video_content(self, url: str, params: dict[str, str]) -> dict[str, str]:
         content = self._fetch_content_json(url, params)
         need_redirect = bool(content.get('needRedirect'))
