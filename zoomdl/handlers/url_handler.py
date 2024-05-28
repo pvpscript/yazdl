@@ -47,8 +47,8 @@ class UrlHandler:
             match_res = re.match(r'.*zoom.us/.*/(play|share)/.*', url)
             
             return match_res.group(1)
-        except AttributeError:
-            raise InvalidUrlError(f'Url: "{url}" is invalid.')
+        except AttributeError as exc:
+            raise InvalidUrlError(f'Url: "{url}" is invalid.') from exc
 
     def _video_data_info(self, url: str) -> str:
         url_type = self._url_type(url)

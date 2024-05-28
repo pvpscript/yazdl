@@ -19,7 +19,7 @@ class DataHandler:
         self._session = session
         self._url_handler = url_handler
 
-    def _fetch_content_json(self, url: str, extra_params: dict[str, str] = {}) -> dict[str, str]:
+    def _fetch_content_json(self, url: str, extra_params: dict[str, str]) -> dict[str, str]:
         content_url = self._url_handler.fetch_content_url(url)
 
         params = {
@@ -46,7 +46,10 @@ class DataHandler:
 
         return url, content
 
-    def _fetch_all_clips(self, url: str, params: dict[str, str] = {}) -> list[dict[str, str]]:
+    def _fetch_all_clips(self, url: str, params: dict[str, str] = None) -> list[dict[str, str]]:
+        if params == None:
+            params = {}
+
         url, content = self._fetch_video_content(url, params)
         next_clip_start_time = content['nextClipStartTime']
 
@@ -76,6 +79,6 @@ class DataHandler:
         try:
             origin = self._url_handler.origin(url)
 
-            return [Streams(clip, origin) for clip in self._fetch_all_clips(url)]
+            return [Streams(clip, origin) for clip in self._fetch_all_clips(url, params={})]
         except JSONDecodeError as e:
             raise DataError(f'Unable to fetch data as JSON: "{e}"') from e
