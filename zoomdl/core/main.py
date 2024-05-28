@@ -25,6 +25,7 @@ def start_session(args: Namespace) -> None:
         zoom_downloader = init_downloader(args, session)
 
         for url in args.urls:
+            print(f'Downloading URL: "{url}"')
             zoom_downloader.download_data(url)
 
 def main() -> None:
