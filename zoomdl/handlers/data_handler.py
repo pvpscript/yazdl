@@ -19,7 +19,10 @@ class DataHandler:
         self._session = session
         self._url_handler = url_handler
 
-    def _fetch_content_json(self, url: str, extra_params: dict[str, str]) -> dict[str, str]:
+    def _fetch_content_json(self, url: str, extra_params: dict[str, str] = None) -> dict[str, str]:
+        if extra_params == None:
+            extra_params = {}
+
         content_url = self._url_handler.fetch_content_url(url)
 
         params = {
@@ -79,6 +82,6 @@ class DataHandler:
         try:
             origin = self._url_handler.origin(url)
 
-            return [Streams(clip, origin) for clip in self._fetch_all_clips(url, params={})]
+            return [Streams(clip, origin) for clip in self._fetch_all_clips(url)]
         except JSONDecodeError as e:
             raise DataError(f'Unable to fetch data as JSON: "{e}"') from e
