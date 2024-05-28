@@ -12,8 +12,7 @@ class InfoParser(HTMLParser):
 
     _is_script: bool = False
     _init_data_tag: str  = '__data__'
-    _field: str = 'fileId'
-    _data: str
+    _data: dict[str, str] 
 
     def _clear(self) -> None:
         self._is_script = False
@@ -30,7 +29,7 @@ class InfoParser(HTMLParser):
             )
             json_data = json.loads(quoted_payload)
 
-            return json_data[self._field]
+            return json_data
         except AttributeError as e:
             raise PayloadError('An error occurred when parsing the initial payload') from e
         except json.decoder.JSONDecodeError as e:
@@ -56,5 +55,5 @@ class InfoParser(HTMLParser):
             self._data = self._parse_data(data)
 
     @property
-    def data(self):
+    def data(self) -> dict[str, str]:
         return self._data
