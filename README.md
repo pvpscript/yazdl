@@ -12,6 +12,7 @@ pip install zoomdl
 
 ## Manually
 Clone this repository and `cd` into it.
+
 Run the following command:
 `sh python ...`
 
@@ -35,14 +36,19 @@ Just a few things I'd like to add, at least for now.
 
 ## DI
 When I started writing this script, I decided to use DI in order to make something reusable, which, after a while I realized how much of a overkill this was for such a simple script. At the end, I didn't use ABCs and didn't write any tests, so it was a huge waste of time.
+
 I'll eventually fix this mess and add a few tests, but for now, this project is not my top priority.
 
 ## YoutubeDL
 After I was done with the downloader, I realized that the famous `youtubedl` already had a module that downloads zoom recordings, which contains proper testing as well, sooo...
+
 But anyway, their script couldn't properly download th recordings that I had, so maybe thua is not that much useless after all?
+
 The thing is, I will improve this script, eventually.
 
 # TODO
 Password streams
+
 Use ABC
+
 Write tests lol
