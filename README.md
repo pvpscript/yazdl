@@ -11,10 +11,12 @@ pip install zoomdl
 ```
 
 ## Manually
-Clone this repository and `cd` into it.
+In case you want to install it directly from the source, simply clone this repository and `cd` into it.
 
-Run the following command:
-`sh python ...`
+Then, run the following command:
+```sh
+pip install .
+```
 
 
 # Usage
@@ -24,6 +26,7 @@ zoomdl recording-url.zoom.us/id1 recording-url.zoom.us/id2 ...
 ```
 
 This will download all the recordings contained in the given URLs, whose content will be shared screen and speaker cam, if applicable.
+
 
 ## General usage
 `sh zoomdl URL [opions]`
