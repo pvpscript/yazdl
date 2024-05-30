@@ -29,10 +29,18 @@ This will download all the recordings contained in the given URLs, whose content
 
 
 ## General usage
-`sh zoomdl URL [opions]`
+```sh
+zoomdl urls [options]
+```
 
-...put help commands...
-
+### Options
+```sh
+  -h, --help           show a help message and exit.
+  --no-speaker, -k     Don't download the speaker screen.
+  --no-screen, -c      Don't download the screen share.
+  --subtitles, -s      Downloads the default subtitle for the meeting as srt.
+  --transcription, -t  Downloads the meeting transcription as srt.
+```
 
 # Addendum
 Just a few things I'd like to add, at least for now.
