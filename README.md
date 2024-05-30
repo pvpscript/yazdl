@@ -2,12 +2,12 @@
 Download zoom recordings
 
 # Installation
-This program can be installed manually, with the source code, using `pip` or, in case you are on Windows, use the latest compiled release.
+This program can be installed manually, with the source code, using `pip` (in this case we'll be using `pipx` for separated virtual environments) or, in case you are on Windows, use the latest compiled release.
 
 ## Using pip
 Simply type the following line into a terminal
 ```sh
-pip install zoomdl
+pipx install zoomdl
 ```
 
 ## Manually
@@ -15,7 +15,7 @@ In case you want to install it directly from the source, simply clone this repos
 
 Then, run the following command:
 ```sh
-pip install .
+pipx install .
 ```
 
 
