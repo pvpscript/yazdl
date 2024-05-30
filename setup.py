@@ -35,7 +35,7 @@ setup(
         packages=find_packages(),
         scripts=['scripts/yazdl'],
 
-        python_requires='>=3.6',
+        python_requires='>=3.9',
         install_requires=install_requires,
 
         project_urls={
