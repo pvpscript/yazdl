@@ -58,6 +58,8 @@ But anyway, their script couldn't properly download th recordings that I had, so
 The thing is, I will improve this script, eventually.
 
 # TODO
+Replace `setup.py` and use [build](https://build.pypa.io/en/stable/) to build the package.
+
 Password streams
 
 Use ABC
