@@ -1,7 +1,7 @@
 import argparse
 
 class Options:
-    _PACKAGE_NAME = 'zoomdl'
+    _PACKAGE_NAME = 'yazdl'
 
     def __init__(self):
         self._parser = argparse.ArgumentParser(prog=self._PACKAGE_NAME,

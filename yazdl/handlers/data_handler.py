@@ -4,8 +4,8 @@ from requests import Session
 from requests.models import Response
 from requests.exceptions import JSONDecodeError
 
-from zoomdl.handlers.url_handler import UrlHandler
-from zoomdl.data.streams import Streams
+from yazdl.handlers.url_handler import UrlHandler
+from yazdl.data.streams import Streams
 
 class DataError(Exception):
     """ Raised when a data error occurs """

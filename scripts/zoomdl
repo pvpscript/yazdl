@@ -1,6 +1,0 @@
-#!/usr/bin/python -O
-
-import sys
-import zoomdl
-
-sys.exit(zoomdl.main())

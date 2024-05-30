@@ -7,7 +7,7 @@ from urllib.parse import (
 
 from requests import Session
 
-from zoomdl.handlers.parser import InfoParser
+from yazdl.handlers.parser import InfoParser
 
 class InvalidUrlError(Exception):
     """ Raised when a given URL is of an incorrect format """

@@ -3,12 +3,12 @@ import requests
 
 from argparse import Namespace
 
-from zoomdl.handlers.parser import InfoParser
-from zoomdl.handlers.url_handler import UrlHandler
-from zoomdl.handlers.data_handler import DataHandler
-from zoomdl.core.zoom_downloader import ZoomDownloader
-from zoomdl.core.headers import default_headers
-from zoomdl.core.options import Options
+from yazdl.handlers.parser import InfoParser
+from yazdl.handlers.url_handler import UrlHandler
+from yazdl.handlers.data_handler import DataHandler
+from yazdl.core.zoom_downloader import ZoomDownloader
+from yazdl.core.headers import default_headers
+from yazdl.core.options import Options
 
 
 def init_downloader(args: Namespace, session: requests.Session) -> ZoomDownloader:

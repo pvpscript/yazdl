@@ -12,13 +12,13 @@ with open(requirements) as req:
     install_requires = req.read().splitlines()
 
 setup(
-        name='zoomdl',
+        name='yazdl',
         description='Download zoom recordings.',
         long_description=long_description,
         long_description_content_type='text/markdown',
         version='0.1.0',
         author='pvpscript',
-        url='https://github.com/pvpscript/zoomdl',
+        url='https://github.com/pvpscript/yazdl',
 
         classifiers=[
             'Environment :: Console',
@@ -33,13 +33,13 @@ setup(
         keywords='zoom, recording, downloader',
 
         packages=find_packages(),
-        scripts=['scripts/zoomdl'],
+        scripts=['scripts/yazdl'],
 
         python_requires='>=3.6',
         install_requires=install_requires,
 
         project_urls={
-            'Bug Reports': 'https://github.com/pvpscript/zoomdl/issues',
-            'Source': 'https://github.com/pvpscript/zoomdl',
+            'Bug Reports': 'https://github.com/pvpscript/yazdl/issues',
+            'Source': 'https://github.com/pvpscript/yazdl',
         },
 )

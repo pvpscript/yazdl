@@ -6,7 +6,7 @@ from requests import Session
 
 from argparse import Namespace
 
-from zoomdl.handlers.data_handler import DataHandler
+from yazdl.handlers.data_handler import DataHandler
 
 DownloadCoroutine = Generator[bytes, None, None]
 
