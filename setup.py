@@ -25,7 +25,7 @@ setup(
             'Intended Audience :: Developers',
             'Intended Audience :: End Users/Desktop',
             'Intended Audience :: System Administrators',
-            'License :: OSI Approved :: MIT Licence',
+            'License :: OSI Approved :: MIT License',
             'Operating System :: Unix',
             'Programming Language :: Python :: 3',
             'Topic :: Utilities',
